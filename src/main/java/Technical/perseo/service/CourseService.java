@@ -20,10 +20,6 @@ public class CourseService {
         return (List<Course>) iCourseRepository.findAll();
     }
 
-    public List<Course> getAllByUserId(Long user_id) {
-        return iCourseRepository.findByUserId(user_id);
-    }
-
     public void deleteById(Long id) {
         iCourseRepository.deleteById(id);
     }

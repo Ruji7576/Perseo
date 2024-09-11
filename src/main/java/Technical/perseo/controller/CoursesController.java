@@ -23,10 +23,6 @@ public class CoursesController {
         return courseService.getAllCourses();
     }
 
-    @GetMapping(path = "/getAllBy/{user_id}")
-    public List<Course> getAllByUserId(@PathVariable Long user_id) {
-        return courseService.getAllByUserId(user_id);
-    }
     @DeleteMapping(path = "/delete/{id}")
     public void deleteCourse(@PathVariable Long id) {
         courseService.deleteById(id);

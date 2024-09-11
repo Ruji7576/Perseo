@@ -19,4 +19,21 @@ public class PayementController {
     public List<Payement> buyCourse(@PathVariable Long user_id, @RequestBody Payement payement) {
         return payementService.buyCourse(user_id,payement);
     }
+
+    @GetMapping(path = "/getAll")
+    public List<Payement> getAllPayement() {
+        return payementService.getAllPayements();
+    }
+    @GetMapping(path = "/getAll/{user_id}")
+    public List<Payement> getAllByUserId(@PathVariable Long user_id) {
+        return payementService.getAllByUserId(user_id);
+    }
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteById(@PathVariable Long id) {
+        payementService.deletePayement(id);
+    }
+    @PutMapping(path = "/update/{id}")
+    public Payement updatePayement(@PathVariable Long id, @RequestBody Payement payement) {
+        return payementService.updatePayement(id, payement);
+    }
 }

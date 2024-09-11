@@ -27,9 +27,6 @@ public class PayementService {
     @Autowired
     ICartRepocitory iCartRepocitory;
 
-    @Autowired
-    UserDetails userDetails;
-
     private class InsufficientFundsException extends RuntimeException {
         public InsufficientFundsException(String message) {
             super(message);
@@ -58,7 +55,22 @@ public class PayementService {
             iCartRepocitory.deleteByUserId(user_id);
             return checksList;
         } else {
-            throw new InsufficientFundsException("Insufficient funds for user id: " + user_id);
+            throw new InsufficientFundsException("You don't have enough money : " + user_id);
         }
+    }
+
+    public List<Payement> getAllByUserId(Long user_id) {
+        return iPayementRepository.findByUserId(user_id);
+    }
+    public List<Payement> getAllPayements() {
+        return (List<Payement>) iPayementRepository.findAll();
+    }
+
+    public void deletePayement(Long id) {
+        iPayementRepository.deleteById(id);
+    }
+    public Payement updatePayement(Long id, Payement payement) {
+        payement.setId(id);
+        return iPayementRepository.save(payement);
     }
 }
