@@ -11,6 +11,7 @@ import jakarta.persistence.Access;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +37,10 @@ public class PayementService {
 
     public List<Payement> buyCourse(Long user_id, Payement payement) {
         ArrayList<Payement> checksList = new ArrayList<>();
-        Optional<UserDetails> optionalUserData = iUserDetailsRepository.findById(user_id);
-        int userMoney = optionalUserData.get().getMoney();
+        List<UserDetails> userDetailsList = iUserDetailsRepository.findByUserId(user_id);
+
+        UserDetails userData = userDetailsList.get(0);
+        int userMoney = userData.getMoney();
         List<Cart> carts = iCartRepocitory.findByUserId(user_id);
         int sum = 0;
 
@@ -48,16 +51,20 @@ public class PayementService {
         if (userMoney >= sum) {
             for (Cart cart : carts) {
                 Course course = cart.getCourse();
-                payement.setCourse(course);
-                checksList.add(payement);
-                iPayementRepository.save(payement);
+                Payement newPayement = new Payement(null, course.getCost(), "completed", LocalDateTime.now(), userData.getUser(), course);
+                checksList.add(newPayement);
+                iPayementRepository.save(newPayement);
             }
             iCartRepocitory.deleteByUserId(user_id);
+            userMoney -= sum;
+            userData.setMoney(userMoney);
+            iUserDetailsRepository.save(userData);
             return checksList;
         } else {
             throw new InsufficientFundsException("You don't have enough money : " + user_id);
         }
     }
+
 
     public List<Payement> getAllByUserId(Long user_id) {
         return iPayementRepository.findByUserId(user_id);
