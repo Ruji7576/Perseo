@@ -34,7 +34,7 @@ public class UserCourseService {
             if(userCourse.getCourse().getId().equals(course_id)) {
                 if(userCourse.isCompleted()) {
                     userCourse.setCompleted(false);
-                    return userCourse;
+                    return iUserCourseRepository.save(userCourse);
                 } else {
                     userCourse.setCompleted(true);
                     return iUserCourseRepository.save(userCourse);
