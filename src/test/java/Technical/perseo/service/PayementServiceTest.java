@@ -63,7 +63,7 @@ class PayementServiceTest {
         when(iPayementRepository.save(any(Payement.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         Payement initialPayement = new Payement(1L, 0, null, null, null, null);
-        List<Payement> result = payementService.buyCourse(1L, initialPayement);
+        List<Payement> result = payementService.buyCourse(1L);
 
         assertNotNull(result);
         assertEquals(2, result.size());

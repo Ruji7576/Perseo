@@ -3,7 +3,7 @@ package Technical.perseo.controller;
 import Technical.perseo.model.Cart;
 import Technical.perseo.model.UserDetails;
 import Technical.perseo.service.CartService;
-import Technical.perseo.service.UserDetailsService;
+import Technical.perseo.service.PayementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +14,11 @@ import java.util.List;
 public class UserDetailsController {
 
     @Autowired
-    UserDetailsService userDetailsService;
+    PayementService userDetailsService;
 
     @GetMapping(path = "/getById/{id}")
     public UserDetails getById(@PathVariable Long id) {
-        return userDetailsService.getById(id);
+        return userDetailsService.getByIdUserDetails(id);
     }
     @GetMapping
     public List<UserDetails> getAllUserDetails() {
@@ -27,7 +27,7 @@ public class UserDetailsController {
 
     @GetMapping(path = "/getAllBy/{user_id}")
     public List<UserDetails> getAllByUserId(@PathVariable Long user_id) {
-        return userDetailsService.getAllByUserId(user_id);
+        return userDetailsService.getAllByUserIdUserDetails(user_id);
     }
     @DeleteMapping(path = "/delete/{id}")
     public void deleteUserDetails(@PathVariable Long id) {
@@ -39,7 +39,7 @@ public class UserDetailsController {
     }
 
     @PostMapping(path = "/create")
-    public UserDetails createUserDetails(@RequestBody UserDetails updateCart) {
-        return userDetailsService.createUserDetails(updateCart);
+    public UserDetails createUserDetails(@RequestBody UserDetails updateDetails) {
+        return userDetailsService.createUserDetails(updateDetails);
     }
 }

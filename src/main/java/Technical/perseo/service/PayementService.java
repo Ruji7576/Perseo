@@ -80,4 +80,24 @@ public class PayementService {
         payement.setId(id);
         return iPayementRepository.save(payement);
     }
+
+    public List<UserDetails> getAllByUserIdUserDetails(Long user_id) {
+        return iUserDetailsRepository.findByUserId(user_id);
+    }
+    public List<UserDetails> getAllUserDetails() {
+        return (List<UserDetails>) iUserDetailsRepository.findAll();
+    }
+    public UserDetails getByIdUserDetails(Long id) {
+        return iUserDetailsRepository.findById(id).orElseThrow();
+    }
+    public void deleteUserDetails(Long id) {
+        iUserDetailsRepository.deleteById(id);
+    }
+    public UserDetails updateUserDetails(Long id, UserDetails userDetails) {
+        userDetails.setId(id);
+        return iUserDetailsRepository.save(userDetails);
+    }
+    public UserDetails createUserDetails(UserDetails userDetails) {
+        return iUserDetailsRepository.save(userDetails);
+    }
 }
