@@ -74,6 +74,5 @@ To get started with the project:
 
 ## Database Schema
 
-You can add a screenshot or image of the database schema here:
 ![Database Schema](https://github.com/maksym7576/Perseo/blob/main/src/Images/Base%20of%20date.png?raw=true)
 
